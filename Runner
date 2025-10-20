@@ -1,0 +1,40 @@
+import pygame
+from sys import exit
+
+pygame.init()
+screen = pygame.display.set_mode((800,400)) #(Width, Height), #origin point
+pygame.display.set_caption('Runner') #Title
+clock = pygame.time.Clock()
+test_font = pygame.font.Font('/Users/fatahibrahim/Desktop/Pygames_app/Runner/font/Pixeltype.ttf', 50) # (font type, font size)
+
+sky_surface = pygame.image.load('/Users/fatahibrahim/Desktop/Pygames_app/Runner/graphic/sky.png').convert()
+ground_surface = pygame.image.load('/Users/fatahibrahim/Desktop/Pygames_app/Runner/graphic/ground.png').convert()
+text_surface = test_font.render('My game', False, 'Black') #( text, AA, color)
+
+snail_surf= pygame.image.load('/Users/fatahibrahim/Desktop/Pygames_app/Runner/graphic/snail/snail1.png').convert_alpha()
+snail_rect = snail_surf.get_rect(bottomright= (600,300))
+
+player_surf = pygame.image.load('/Users/fatahibrahim/Desktop/Pygames_app/Runner/graphic/player/player_walk_1.png').convert_alpha()
+player_rect = player_surf.get_rect(midbottom = (80,300))
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+    #draw all our elements
+    #update everything
+  
+    screen.blit(sky_surface,(0,0)) # Getting the Display. Also called surface is what the user sees
+    screen.blit(ground_surface,(0,300)) # (surface, position) 
+    screen.blit(text_surface,(300,50))
+    snail_rect.x -= 4
+    if snail_rect.right <=0: snail_rect.left = 800 
+    screen.blit(snail_surf,snail_rect)
+    screen.blit(player_surf, player_rect)
+
+    if player_rect.colliderect(snail_rect):
+        print('collision')
+
+    pygame.display.update()
+    clock.tick(60) # tells the while loop dont run faster than 60 times per second
