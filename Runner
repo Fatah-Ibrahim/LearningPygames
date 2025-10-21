@@ -210,7 +210,7 @@ while True:
 
         if game_active:
             if event.type == obstacle_timer:
-                obstacle_group.add(Obstacle(choice(['fly', 'snail', 'snail', 'snail'])))
+                obstacle_group.add(Obstacle(choice(['fly', 'snail', 'snail'])))
 
             if event.type == snail_animation_timer:
                 snail_frame_index = 1 if snail_frame_index == 0 else 0
